@@ -6,7 +6,7 @@ const MemoLIst = () => {
   const posts = useSelector(selectPosts)
 
   return (
-    <div className="p-10 grid grid-cols-4 gap-4">
+    <div className="p-10 grid gap-4 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2">
       {posts.map((post) => (
         <MemoItem key={post.id} post={post} />
       ))}

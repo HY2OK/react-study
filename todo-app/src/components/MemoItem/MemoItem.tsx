@@ -20,8 +20,10 @@ const MemoItem: React.FC<MemoProps> = ({ post }) => {
   const inputRef = useRef(null)
 
   useEffect(() => {
-    if (editor && inputRef.current !== null)
-      (inputRef.current as HTMLInputElement)?.focus()
+    if (editor && inputRef.current !== null) {
+      const textarea = inputRef.current as HTMLTextAreaElement
+      textarea.focus()
+    }
   }, [editor])
 
   const handleChecked = () => {
