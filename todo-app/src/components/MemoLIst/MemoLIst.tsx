@@ -1,12 +1,13 @@
-import { useAppSelector } from '../../app/hooks'
+import { useSelector } from 'react-redux'
+import { selectPosts } from '../../features/post/postSlice'
 import MemoItem from '../MemoItem/MemoItem'
 
 const MemoLIst = () => {
-  const posts = useAppSelector((state) => state.post)
+  const posts = useSelector(selectPosts)
 
   return (
     <div className="p-10 grid grid-cols-4 gap-4">
-      {posts.posts.map((post) => (
+      {posts.map((post) => (
         <MemoItem key={post.id} post={post} />
       ))}
     </div>

@@ -1,4 +1,5 @@
-import { PayloadAction, createSlice } from '@reduxjs/toolkit'
+import { PayloadAction, createSelector, createSlice } from '@reduxjs/toolkit'
+import { RootState } from '../../app/store'
 
 interface PostState {
   id: string
@@ -6,11 +7,6 @@ interface PostState {
   isDone: boolean
   createdAt: string
 }
-
-// interface updateState {
-//   id: string
-//   updatedPost: PostState
-// }
 
 const initialState: { posts: PostState[] } = {
   posts: [],
@@ -27,16 +23,20 @@ export const postSlice = createSlice({
     //   const deleteId = action.payload
     //   state = state.filter((post) => post.id !== deleteId)
     // },
-    // updatePost: (state, action: PayloadAction<updateState>) => {
-    //   const { id: postId, updatedPost } = action.payload
-    //   state = state.map((post) => {
-    //     if (post.id === postId) return updatedPost
-    //     return post
-    //   })
-    // },
+    updatePost: (state, action: PayloadAction<PostState>) => {
+      state.posts = state.posts.map((post) => {
+        if (post.id === action.payload.id) return action.payload
+        return post
+      })
+    },
   },
 })
 
-export const { addPost } = postSlice.actions
+export const selectPosts = createSelector(
+  (state: RootState) => state.post,
+  (data) => data.posts,
+)
+
+export const { addPost, updatePost } = postSlice.actions
 
 export default postSlice.reducer
