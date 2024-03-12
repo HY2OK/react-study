@@ -1,5 +1,5 @@
 import { useDispatch } from 'react-redux'
-import { updatePost } from '../../features/post/postSlice'
+import { deletePost, updatePost } from '../../features/post/postSlice'
 import { FiEdit3, FiTrash2 } from 'react-icons/fi'
 
 interface MemoProps {
@@ -13,6 +13,8 @@ interface MemoProps {
 
 const MemoItem: React.FC<MemoProps> = ({ post }) => {
   const dispatch = useDispatch()
+  const date = new Date(post.createdAt)
+  console.log(date.getDate())
 
   const handleChecked = () => {
     const data = {
@@ -22,8 +24,12 @@ const MemoItem: React.FC<MemoProps> = ({ post }) => {
     dispatch(updatePost(data))
   }
 
+  const handleDelete = () => {
+    dispatch(deletePost(post.id))
+  }
+
   return (
-    <div className="relative bg-custom-background bg-contain bg-center w-64 h-64 p-12">
+    <div className="relative bg-custom-background bg-contain bg-center w-64 h-64 px-12 py-16">
       <input
         type="checkbox"
         name="done"
@@ -31,6 +37,9 @@ const MemoItem: React.FC<MemoProps> = ({ post }) => {
         onChange={handleChecked}
         checked={post.isDone}
       />
+      <div className="absolute top-6 right-8 text-gray-700">{`${date.getFullYear()}-${
+        date.getMonth() + 1
+      }-${date.getDate()}`}</div>
       <div className={`relative text-lg ${post.isDone && 'line-through text-gray-600'}`}>
         {post.description}
       </div>
@@ -39,7 +48,10 @@ const MemoItem: React.FC<MemoProps> = ({ post }) => {
         <div className="text-green-400 cursor-pointer transition-all hover:scale-125 hover:text-green-600">
           <FiEdit3 />
         </div>
-        <div className="text-red-400 cursor-pointer transition-all hover:scale-125 hover:text-red-600">
+        <div
+          onClick={handleDelete}
+          className="text-red-400 cursor-pointer transition-all hover:scale-125 hover:text-red-600"
+        >
           <FiTrash2 />
         </div>
       </div>

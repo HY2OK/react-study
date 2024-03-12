@@ -19,15 +19,15 @@ export const postSlice = createSlice({
     addPost: (state, action: PayloadAction<PostState>) => {
       state.posts = [...state.posts, action.payload]
     },
-    // deletePost: (state, action: PayloadAction<string>) => {
-    //   const deleteId = action.payload
-    //   state = state.filter((post) => post.id !== deleteId)
-    // },
     updatePost: (state, action: PayloadAction<PostState>) => {
       state.posts = state.posts.map((post) => {
         if (post.id === action.payload.id) return action.payload
         return post
       })
+    },
+    deletePost: (state, action: PayloadAction<string>) => {
+      const deleteId = action.payload
+      state.posts = state.posts.filter((post) => post.id !== deleteId)
     },
   },
 })
@@ -37,6 +37,6 @@ export const selectPosts = createSelector(
   (data) => data.posts,
 )
 
-export const { addPost, updatePost } = postSlice.actions
+export const { addPost, updatePost, deletePost } = postSlice.actions
 
 export default postSlice.reducer
