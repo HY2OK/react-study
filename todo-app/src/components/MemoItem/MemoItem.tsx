@@ -1,6 +1,7 @@
 import { useDispatch } from 'react-redux'
 import { deletePost, updatePost } from '../../features/post/postSlice'
 import { FiEdit3, FiTrash2 } from 'react-icons/fi'
+import { ChangeEvent, useEffect, useRef, useState } from 'react'
 
 interface MemoProps {
   post: {
@@ -13,8 +14,15 @@ interface MemoProps {
 
 const MemoItem: React.FC<MemoProps> = ({ post }) => {
   const dispatch = useDispatch()
+  const [editor, setEditor] = useState(false)
+  const [postDescription, setPostDescription] = useState(post.description)
   const date = new Date(post.createdAt)
-  console.log(date.getDate())
+  const inputRef = useRef(null)
+
+  useEffect(() => {
+    if (editor && inputRef.current !== null)
+      (inputRef.current as HTMLInputElement)?.focus()
+  }, [editor])
 
   const handleChecked = () => {
     const data = {
@@ -26,6 +34,21 @@ const MemoItem: React.FC<MemoProps> = ({ post }) => {
 
   const handleDelete = () => {
     dispatch(deletePost(post.id))
+  }
+
+  const handleTextarea = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    setPostDescription(e.target.value)
+  }
+
+  const handleEdit = () => {
+    if (editor && post.description !== postDescription) {
+      const data = {
+        ...post,
+        ['description']: postDescription,
+      }
+      dispatch(updatePost(data))
+    }
+    setEditor((prev) => !prev)
   }
 
   return (
@@ -41,10 +64,25 @@ const MemoItem: React.FC<MemoProps> = ({ post }) => {
         date.getMonth() + 1
       }-${date.getDate()}`}</div>
       <div className={`relative text-lg ${post.isDone && 'line-through text-gray-600'}`}>
-        {post.description}
+        {editor ? (
+          <div>
+            <textarea
+              name="description"
+              value={postDescription}
+              ref={inputRef}
+              onChange={handleTextarea}
+              className="resize-none w-full h-full bg-transparent focus:outline-none"
+            />
+          </div>
+        ) : (
+          <div>{post.description}</div>
+        )}
       </div>
 
-      <div className="absolute flex flex-row bottom-10 left-10 gap-3 text-xl">
+      <div
+        onClick={handleEdit}
+        className="absolute flex flex-row bottom-10 left-10 gap-3 text-xl"
+      >
         <div className="text-green-400 cursor-pointer transition-all hover:scale-125 hover:text-green-600">
           <FiEdit3 />
         </div>
