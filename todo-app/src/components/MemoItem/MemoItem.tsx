@@ -90,7 +90,7 @@ const MemoItem: React.FC<MemoProps> = ({ post }) => {
         </div>
         <div
           onClick={handleDelete}
-          className="text-red-400 cursor-pointer transition-all hover:scale-125 hover:text-red-600"
+          className="text-red-400 cursor-pointer transition-all hover:scale-125 hover:text-red-600 z-20"
         >
           <FiTrash2 />
         </div>
