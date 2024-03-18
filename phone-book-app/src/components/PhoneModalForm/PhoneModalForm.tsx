@@ -1,6 +1,6 @@
 import { MdSmartphone, MdLinkedCamera } from 'react-icons/md'
 import { CiUser, CiPhone } from 'react-icons/ci'
-import { Dispatch, SetStateAction, useState } from 'react'
+import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react'
 import { useAppDispatch } from '../../store/hooks'
 import { addPhoneBook, editPhoneBook } from '../../store/features/phoneBook/phoneBook'
 import uuid from 'react-uuid'
@@ -22,6 +22,11 @@ const PhoneModalForm: React.FC<Props> = ({ setModal, phone = null }) => {
     name: phone?.name || '',
     phoneNumber: phone?.number || '',
   })
+  const inputRef = useRef<HTMLInputElement | null>(null)
+
+  useEffect(() => {
+    inputRef.current?.focus()
+  }, [])
 
   const handleCancel = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
@@ -75,6 +80,7 @@ const PhoneModalForm: React.FC<Props> = ({ setModal, phone = null }) => {
       <label className="w-[90%] h-12 relative my-3">
         <CiUser className="absolute top-1/2 left-2 translate-y-[-50%] text-xl font-bold" />
         <input
+          ref={inputRef}
           type="text"
           name="name"
           id="name"
