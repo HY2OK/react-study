@@ -5,6 +5,7 @@ import PhoneModalForm from '../PhoneModalForm/PhoneModalForm'
 interface Props {
   setModal: Dispatch<SetStateAction<boolean>>
   phone: {
+    id: string
     name: string
     number: string
     createdAt: string

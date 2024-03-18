@@ -8,6 +8,7 @@ import uuid from 'react-uuid'
 interface Props {
   setModal: Dispatch<SetStateAction<boolean>>
   phone: {
+    id: string
     name: string
     number: string
     createdAt: string
@@ -36,16 +37,22 @@ const PhoneModalForm: React.FC<Props> = ({ setModal, phone = null }) => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    const data = {
-      id: uuid(),
-      name: phoneData.name,
-      number: phoneData.phoneNumber,
-      createdAt: new Date().toISOString(),
-    }
 
     if (editMode) {
-      dispatch(editPhoneBook(data))
+      const editData = {
+        id: phone!.id,
+        name: phoneData.name,
+        number: phoneData.phoneNumber,
+        createdAt: new Date().toISOString(),
+      }
+      dispatch(editPhoneBook(editData))
     } else {
+      const data = {
+        id: uuid(),
+        name: phoneData.name,
+        number: phoneData.phoneNumber,
+        createdAt: new Date().toISOString(),
+      }
       dispatch(addPhoneBook(data))
     }
 
