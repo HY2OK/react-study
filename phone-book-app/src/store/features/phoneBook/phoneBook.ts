@@ -29,7 +29,9 @@ export const phoneBookSlice = createSlice({
     },
     editPhoneBook: (state, action: PayloadAction<PhoneState>) => {
       state.phoneBook = state.phoneBook.map((phone) => {
-        if (phone.id === action.payload.id) action.payload
+        if (phone.id === action.payload.id) {
+          return action.payload
+        }
         return phone
       })
     },
