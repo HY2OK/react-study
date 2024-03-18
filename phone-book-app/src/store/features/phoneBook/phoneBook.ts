@@ -1,4 +1,5 @@
-import { PayloadAction, createSlice } from '@reduxjs/toolkit'
+import { PayloadAction, createSelector, createSlice } from '@reduxjs/toolkit'
+import { RootState } from '../../store'
 
 export interface PhoneState {
   id: string
@@ -33,6 +34,11 @@ export const phoneBookSlice = createSlice({
     },
   },
 })
+
+export const selectAllPhoneBooks = createSelector(
+  (state: RootState) => state.phone,
+  (phone) => phone.phoneBook,
+)
 
 // Action creators are generated for each case reducer function
 export const { addPhoneBook, deletePhoneBook, editPhoneBook } = phoneBookSlice.actions
