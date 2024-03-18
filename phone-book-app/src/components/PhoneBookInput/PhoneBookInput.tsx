@@ -2,16 +2,17 @@ import { Dispatch, SetStateAction } from 'react'
 import { AiOutlinePlus, AiOutlineSearch } from 'react-icons/ai'
 
 interface Props {
-  setAddModal: Dispatch<SetStateAction<boolean>>
+  setAddModalOpen: Dispatch<SetStateAction<boolean>>
+  setSearchModalOpen: Dispatch<SetStateAction<boolean>>
 }
 
-const PhoneBookInput: React.FC<Props> = ({ setAddModal }) => {
+const PhoneBookInput: React.FC<Props> = ({ setAddModalOpen, setSearchModalOpen }) => {
   return (
     <div className="flex justify-between items-center mb-8">
       <span className="text-2xl text-blue-700 font-bold">전화</span>
       <div className="flex justify-center items-center gap-3 text-2xl text-blue-500 cursor-pointer">
-        <AiOutlinePlus onClick={() => setAddModal((prev) => !prev)} />
-        <AiOutlineSearch />
+        <AiOutlinePlus onClick={() => setAddModalOpen((prev) => !prev)} />
+        <AiOutlineSearch onClick={() => setSearchModalOpen((prev) => !prev)} />
       </div>
     </div>
   )

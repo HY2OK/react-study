@@ -54,6 +54,16 @@ export const selectPhoneBookById = createSelector(
   },
 )
 
+export const selectPhoneBookSearch = createSelector(
+  (state: RootState) => state.phone,
+  (_, str) => str,
+  (phone, str) => {
+    if (str === '') return null
+    const filteredData = phone.phoneBook.filter((p: PhoneState) => p.name.includes(str))
+    return filteredData
+  },
+)
+
 // Action creators are generated for each case reducer function
 export const { addPhoneBook, deletePhoneBook, editPhoneBook } = phoneBookSlice.actions
 
