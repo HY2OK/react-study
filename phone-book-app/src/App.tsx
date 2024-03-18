@@ -17,9 +17,7 @@ function App() {
 
   return (
     <div className="w-full min-h-screen flex justify-center items-center ">
-      <div className="w-[360px] h-[740px] grid grid-rows-10 bg-slate-200/75 border-8 border-black rounded-3xl p-8 relative">
-        <RouterProvider router={router} />
-      </div>
+      <RouterProvider router={router} />
     </div>
   )
 }

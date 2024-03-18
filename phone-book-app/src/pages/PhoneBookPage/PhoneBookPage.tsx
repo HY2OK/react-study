@@ -10,7 +10,7 @@ const PhoneBookPage = () => {
   const [addModal, setAddModal] = useState(false)
 
   return (
-    <>
+    <div className="w-[360px] h-[740px] grid grid-rows-10 bg-slate-200/75 border-8 border-black rounded-3xl p-8 relative">
       <div className="row-span-1">
         <PhoneBookInput setAddModal={setAddModal} />
       </div>
@@ -23,7 +23,7 @@ const PhoneBookPage = () => {
         </ul>
       </div>
       {addModal && <AddPhoneModal setAddModal={setAddModal} />}
-    </>
+    </div>
   )
 }
 
