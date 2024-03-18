@@ -1,12 +1,13 @@
 import { useState } from 'react'
 import PhoneBookInput from '../../components/PhoneBookInput/PhoneBookInput'
 import PhoneBookItem from '../../components/PhoneBookItem/PhoneBookItem'
-import AddPhoneModal from '../../components/AddPhoneModal/AddPhoneModal'
 import { useAppSelector } from '../../store/hooks'
-import { selectAllPhoneBooks } from '../../store/features/phoneBook/phoneBook'
+import { PhoneState, selectAllPhoneBooks } from '../../store/features/phoneBook/phoneBook'
+import PhoneModal from '../../components/PhoneModal/PhoneModal'
 
 const PhoneBookPage = () => {
-  const allPhoneBooks = useAppSelector(selectAllPhoneBooks)
+  const allPhoneBooks: PhoneState[] = useAppSelector(selectAllPhoneBooks)
+  console.log(allPhoneBooks)
   const [addModal, setAddModal] = useState(false)
 
   return (
@@ -22,7 +23,7 @@ const PhoneBookPage = () => {
             ))}
         </ul>
       </div>
-      {addModal && <AddPhoneModal setAddModal={setAddModal} />}
+      {addModal && <PhoneModal setModal={setAddModal} phone={null} />}
     </div>
   )
 }

@@ -39,8 +39,9 @@ export const phoneBookSlice = createSlice({
 export const selectAllPhoneBooks = createSelector(
   (state: RootState) => state.phone,
   (phone) => {
-    const sorted = sortedData([...phone.phoneBook])
-    return sorted
+    const newPhoneArr = [...phone.phoneBook]
+    sortedData(newPhoneArr)
+    return newPhoneArr
   },
 )
 

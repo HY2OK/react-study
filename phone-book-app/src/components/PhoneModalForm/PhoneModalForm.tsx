@@ -2,24 +2,29 @@ import { MdSmartphone, MdLinkedCamera } from 'react-icons/md'
 import { CiUser, CiPhone } from 'react-icons/ci'
 import { Dispatch, SetStateAction, useState } from 'react'
 import { useAppDispatch } from '../../store/hooks'
-import { addPhoneBook } from '../../store/features/phoneBook/phoneBook'
+import { addPhoneBook, editPhoneBook } from '../../store/features/phoneBook/phoneBook'
 import uuid from 'react-uuid'
 
 interface Props {
-  setAddModal: Dispatch<SetStateAction<boolean>>
+  setModal: Dispatch<SetStateAction<boolean>>
+  phone: {
+    name: string
+    number: string
+    createdAt: string
+  } | null
 }
 
-const AddPhoneForm: React.FC<Props> = ({ setAddModal }) => {
+const PhoneModalForm: React.FC<Props> = ({ setModal, phone = null }) => {
   const dispatch = useAppDispatch()
-
+  const editMode = phone === null ? false : true
   const [phoneData, setPhoneData] = useState({
-    name: '',
-    phoneNumber: '',
+    name: phone?.name || '',
+    phoneNumber: phone?.number || '',
   })
 
   const handleCancel = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
-    setAddModal(false)
+    setModal(false)
   }
 
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -38,8 +43,13 @@ const AddPhoneForm: React.FC<Props> = ({ setAddModal }) => {
       createdAt: new Date().toISOString(),
     }
 
-    dispatch(addPhoneBook(data))
-    setAddModal(false)
+    if (editMode) {
+      dispatch(editPhoneBook(data))
+    } else {
+      dispatch(addPhoneBook(data))
+    }
+
+    setModal(false)
   }
 
   return (
@@ -102,4 +112,4 @@ const AddPhoneForm: React.FC<Props> = ({ setAddModal }) => {
   )
 }
 
-export default AddPhoneForm
+export default PhoneModalForm

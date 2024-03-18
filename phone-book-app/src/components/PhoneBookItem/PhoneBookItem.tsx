@@ -22,7 +22,7 @@ const PhoneBookItem: React.FC<Props> = ({ name, id }) => {
   return (
     <li>
       <Link
-        to={id}
+        to={`/${id}`}
         className="bg-white rounded-2xl w-full h-14 flex items-center gap-3 px-5 cursor-pointer"
       >
         {/* tailwind 색상 import */}

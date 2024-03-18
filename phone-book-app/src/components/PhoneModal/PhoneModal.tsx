@@ -1,16 +1,21 @@
 import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react'
 import useClickOutside from '../../hooks/useClickOutsideModal'
-import AddPhoneForm from '../AddPhoneForm/AddPhoneForm'
+import PhoneModalForm from '../PhoneModalForm/PhoneModalForm'
 
 interface Props {
-  setAddModal: Dispatch<SetStateAction<boolean>>
+  setModal: Dispatch<SetStateAction<boolean>>
+  phone: {
+    name: string
+    number: string
+    createdAt: string
+  } | null
 }
 
-const AddPhoneModal: React.FC<Props> = ({ setAddModal }) => {
+const PhoneModal: React.FC<Props> = ({ setModal, phone = null }) => {
   const modalRef = useRef<HTMLDivElement | null>(null)
   const [isVisible, setIsVisible] = useState(false)
 
-  useClickOutside(modalRef, () => setAddModal(false))
+  useClickOutside(modalRef, () => setModal(false))
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -27,10 +32,10 @@ const AddPhoneModal: React.FC<Props> = ({ setAddModal }) => {
           isVisible ? 'h-full' : 'h-0'
         }`}
       >
-        {isVisible && <AddPhoneForm setAddModal={setAddModal} />}
+        {isVisible && <PhoneModalForm setModal={setModal} phone={phone} />}
       </div>
     </>
   )
 }
 
-export default AddPhoneModal
+export default PhoneModal
