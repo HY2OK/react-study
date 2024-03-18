@@ -1,5 +1,6 @@
 import { PayloadAction, createSelector, createSlice } from '@reduxjs/toolkit'
 import { RootState } from '../../store'
+import { sortedData } from '../../../utils/sortedData'
 
 export interface PhoneState {
   id: string
@@ -37,7 +38,10 @@ export const phoneBookSlice = createSlice({
 
 export const selectAllPhoneBooks = createSelector(
   (state: RootState) => state.phone,
-  (phone) => phone.phoneBook,
+  (phone) => {
+    const sorted = sortedData([...phone.phoneBook])
+    return sorted
+  },
 )
 
 export const selectPhoneBookById = createSelector(
