@@ -29,11 +29,15 @@ const PhoneModal: React.FC<Props> = ({ setModal, phone = null }) => {
     <>
       <div
         ref={modalRef}
-        className={`absolute bottom-0 left-0 bg-slate-200 rounded-3xl w-full transition-all  ${
-          isVisible ? 'h-full' : 'h-0'
-        }`}
+        className={`fixed top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%] bg-slate-200 rounded-3xl w-[360px] h-[740px] border-8 border-black`}
       >
-        {isVisible && <PhoneModalForm setModal={setModal} phone={phone} />}
+        <div
+          className={`absolute bottom-0 transition-all w-full ${
+            isVisible ? 'h-full' : 'h-0'
+          }`}
+        >
+          {isVisible && <PhoneModalForm setModal={setModal} phone={phone} />}
+        </div>
       </div>
     </>
   )

@@ -23,7 +23,7 @@ const DetailPhonePage = () => {
   }
 
   return (
-    <div className="w-[360px] h-[740px] grid grid-rows-10 bg-slate-200/75 border-8 border-black rounded-3xl p-8 relative">
+    <div className="w-[360px] h-[740px] bg-slate-200/75 border-8 border-black rounded-3xl p-8 relative">
       <div className="w-full h-full py-8">
         <div
           onClick={() => navigate(-1)}
