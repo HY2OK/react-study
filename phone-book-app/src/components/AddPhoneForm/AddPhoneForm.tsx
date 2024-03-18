@@ -25,13 +25,12 @@ const AddPhoneForm: React.FC<Props> = ({ setAddModal }) => {
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPhoneData((data) => ({
       ...data,
-      [e.target.name]: e.target.value,
+      [e.target.name]: e.target.value.replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3'),
     }))
   }
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    console.log(phoneData)
     const data = {
       id: uuid(),
       name: phoneData.name,
