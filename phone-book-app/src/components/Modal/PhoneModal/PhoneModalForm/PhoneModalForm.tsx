@@ -1,8 +1,11 @@
 import { MdSmartphone, MdLinkedCamera } from 'react-icons/md'
 import { CiUser, CiPhone } from 'react-icons/ci'
 import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react'
-import { useAppDispatch } from '../../store/hooks'
-import { addPhoneBook, editPhoneBook } from '../../store/features/phoneBook/phoneBook'
+import { useAppDispatch } from '../../../../store/hooks'
+import {
+  addPhoneBook,
+  editPhoneBook,
+} from '../../../../store/features/phoneBook/phoneBook'
 import uuid from 'react-uuid'
 
 interface Props {
@@ -16,13 +19,14 @@ interface Props {
 }
 
 const PhoneModalForm: React.FC<Props> = ({ setModal, phone = null }) => {
-  const dispatch = useAppDispatch()
   const editMode = phone === null ? false : true
   const [phoneData, setPhoneData] = useState({
     name: phone?.name || '',
     phoneNumber: phone?.number || '',
   })
   const inputRef = useRef<HTMLInputElement | null>(null)
+
+  const dispatch = useAppDispatch()
 
   useEffect(() => {
     inputRef.current?.focus()
@@ -43,21 +47,16 @@ const PhoneModalForm: React.FC<Props> = ({ setModal, phone = null }) => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
+    const data = {
+      id: phone?.id || uuid(),
+      name: phoneData.name,
+      number: phoneData.phoneNumber,
+      createdAt: new Date().toISOString(),
+    }
+
     if (editMode) {
-      const editData = {
-        id: phone!.id,
-        name: phoneData.name,
-        number: phoneData.phoneNumber,
-        createdAt: new Date().toISOString(),
-      }
-      dispatch(editPhoneBook(editData))
+      dispatch(editPhoneBook(data))
     } else {
-      const data = {
-        id: uuid(),
-        name: phoneData.name,
-        number: phoneData.phoneNumber,
-        createdAt: new Date().toISOString(),
-      }
       dispatch(addPhoneBook(data))
     }
 

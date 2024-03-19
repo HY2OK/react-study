@@ -1,12 +1,12 @@
 import React, { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react'
-import useClickOutside from '../../hooks/useClickOutsideModal'
+import useClickOutside from '../../../hooks/useClickOutsideModal'
 import {
   PhoneState,
   selectPhoneBookSearch,
-} from '../../store/features/phoneBook/phoneBook'
-import useDebounce from '../../hooks/useDebouce'
-import { useAppSelector } from '../../store/hooks'
-import PhoneBookItem from '../PhoneBookItem/PhoneBookItem'
+} from '../../../store/features/phoneBook/phoneBook'
+import useDebounce from '../../../hooks/useDebouce'
+import { useAppSelector } from '../../../store/hooks'
+import PhoneBookItem from '../../PhoneList/PhoneListView/PhoneItem/PhoneItem'
 import { MdOutlineClose, MdSearch } from 'react-icons/md'
 
 interface Props {
@@ -17,8 +17,8 @@ const SearchModal: React.FC<Props> = ({ setSearchModalOpen }) => {
   const modalRef = useRef<HTMLDivElement | null>(null)
   const inputRef = useRef<HTMLInputElement | null>(null)
   const [isVisible, setIsVisible] = useState(false)
-
   const [searchTerm, setSearchTerm] = useState('')
+
   const debouncedSearchTerm = useDebounce(searchTerm, 500)
   const phoneData = useAppSelector((state) =>
     selectPhoneBookSearch(state, debouncedSearchTerm),
@@ -67,8 +67,15 @@ const SearchModal: React.FC<Props> = ({ setSearchModalOpen }) => {
             className="w-full h-10 rounded-lg px-10 mb-8"
           />
         </label>
+
         <ul className="flex flex-col gap-4">
-          {phoneData &&
+          {phoneData === null && (
+            <div className="pl-3 text-slate-800">검색어를 입력해주세요...</div>
+          )}
+          {phoneData?.length === 0 && (
+            <div className="pl-3 text-slate-800">검색 결과가 없습니다.</div>
+          )}
+          {phoneData?.length > 0 &&
             phoneData.map((phone: PhoneState) => (
               <PhoneBookItem key={phone.id} name={phone.name} id={phone.id} />
             ))}

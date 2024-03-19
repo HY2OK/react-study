@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react'
-import useClickOutside from '../../hooks/useClickOutsideModal'
-import PhoneModalForm from '../PhoneModalForm/PhoneModalForm'
+import useClickOutside from '../../../hooks/useClickOutsideModal'
+import PhoneModalForm from './PhoneModalForm/PhoneModalForm'
 
 interface Props {
   setModal: Dispatch<SetStateAction<boolean>>
@@ -12,7 +12,7 @@ interface Props {
   } | null
 }
 
-const PhoneModal: React.FC<Props> = ({ setModal, phone = null }) => {
+const PhoneModal: React.FC<Props> = ({ setModal, phone }) => {
   const modalRef = useRef<HTMLDivElement | null>(null)
   const [isVisible, setIsVisible] = useState(false)
 

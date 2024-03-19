@@ -1,17 +1,16 @@
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
-import './App.css'
-import PhoneBookPage from './pages/PhoneBookPage/PhoneBookPage'
-import DetailPhonePage from './pages/DetailPhonePage/DetailPhonePage'
+import PhoneListPage from './pages/PhoneListPage/PhoneListPage'
+import PhoneDetailPage from './pages/PhoneDetailPage/PhoneDetailPage'
 
 function App() {
   const router = createBrowserRouter([
     {
       path: '/',
-      element: <PhoneBookPage />,
+      element: <PhoneListPage />,
     },
     {
       path: '/:id',
-      element: <DetailPhonePage />,
+      element: <PhoneDetailPage />,
     },
   ])
 

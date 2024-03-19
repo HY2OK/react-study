@@ -1,6 +1,6 @@
 import { MdLinkedCamera } from 'react-icons/md'
 import { FaPhone, FaMessage, FaVideo } from 'react-icons/fa6'
-import { changeDate } from '../../utils/changeDate'
+import { changeDate } from '../../../utils/changeDate'
 
 interface Props {
   phoneData: {
