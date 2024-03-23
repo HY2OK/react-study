@@ -1,3 +1,4 @@
+import ColorImporter from '../../components/ColorImporter/ColorImporter'
 import PokemonCard from '../../components/PokemonCard/PokemonCard'
 import { useGetPokemonQuery } from '../../redux/services/pokemon'
 
@@ -12,8 +13,7 @@ const PokemonListPage = () => {
   const { data: pokemonList, error, isLoading } = useGetPokemonQuery(BASIC_LIMIT)
 
   return (
-    <div className="w-full min-h-screen bg-slate-100 p-8 flex items-center flex-col">
-      <h1 className="text-3xl font-bold text-yellow-500 mb-14">POKEMON WIKI</h1>
+    <>
       {error && <div>error</div>}
       {isLoading && <div>loading...</div>}
       {pokemonList && (
@@ -23,7 +23,10 @@ const PokemonListPage = () => {
           ))}
         </ul>
       )}
-    </div>
+
+      {/* tailwind color import */}
+      <ColorImporter />
+    </>
   )
 }
 
