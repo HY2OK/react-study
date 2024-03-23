@@ -1,4 +1,6 @@
+import { TYPES } from '../../constants/type'
 import { useGetPokemonByNameQuery } from '../../redux/services/pokemon'
+import ColorImporter from './ColorImporter'
 
 interface Props {
   pokemonName: string
@@ -8,6 +10,8 @@ const PokemonCard: React.FC<Props> = ({ pokemonName }) => {
   const { data: pokemonData, error, isLoading } = useGetPokemonByNameQuery(pokemonName)
 
   console.log(pokemonData && pokemonData)
+  const mainType = pokemonData && pokemonData?.types[0].type.name
+
   return (
     <li className="w-full h-[300px] bg-white shadow-xl rounded-md flex flex-col items-center relative overflow-hidden cursor-pointer">
       {error && <div>error</div>}
@@ -15,7 +19,11 @@ const PokemonCard: React.FC<Props> = ({ pokemonName }) => {
 
       {pokemonData && (
         <>
-          <div className="absolute top-[-370px] w-[500px] h-[500px] rounded-[80%] bg-green-400 z-0" />
+          {/* tailwind color import */}
+          <ColorImporter />
+          <div
+            className={`absolute top-[-370px] w-[500px] h-[500px] rounded-[80%] bg-${TYPES[mainType]}  z-0`}
+          />
           <div className="absolute top-3 right-4 w-14 bg-white rounded-md text-center text-slate-700">
             {pokemonData.id}
           </div>
@@ -34,7 +42,10 @@ const PokemonCard: React.FC<Props> = ({ pokemonName }) => {
           <div className="flex justify-center items-center gap-3 mt-5">
             {pokemonData.types.map(
               ({ type }: { type: { name: string; url: string } }) => (
-                <div className="text-sm px-2 text-white bg-green-500 rounded-md">
+                <div
+                  key={type.url}
+                  className={`text-sm px-2 text-white bg-${TYPES[type.name]} rounded-md`}
+                >
                   {type.name}
                 </div>
               ),
