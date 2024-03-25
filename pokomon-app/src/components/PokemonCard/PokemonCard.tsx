@@ -10,31 +10,29 @@ interface Props {
 }
 
 const PokemonCard: React.FC<Props> = ({ pokemonName }) => {
-  const { data: pokemonData, error, isLoading } = useGetPokemonByNameQuery(pokemonName)
+  const { data, error, isLoading } = useGetPokemonByNameQuery(pokemonName)
   const navigate = useNavigate()
-
-  const mainType = pokemonData && pokemonData?.types[0].type.name
 
   return (
     <li
       className="w-full h-[300px] bg-white shadow-xl rounded-md flex flex-col items-center relative overflow-hidden cursor-pointer"
-      onClick={() => navigate(`${pokemonData.name}`)}
+      onClick={() => navigate(`${data?.name}`)}
     >
       {error && <div>error</div>}
       {isLoading && <div>loading...</div>}
 
-      {pokemonData && (
+      {data && (
         <>
           <ImageSection
-            pokemonId={pokemonData.id}
-            pokemonName={pokemonData.name}
-            imgUrl={pokemonData.sprites.front_default}
-            types={TYPES[mainType]}
+            pokemonId={data.id}
+            pokemonName={data.name}
+            imgUrl={data.sprites}
+            types={TYPES[data.types[0].type.name]}
           />
 
-          <NameSection pokemonName={pokemonData.name} />
+          <NameSection pokemonName={data.name} />
 
-          <TypeSection typesList={pokemonData.types} types={TYPES[mainType]} />
+          <TypeSection typesList={data.types} types={TYPES[data.types[0].type.name]} />
         </>
       )}
     </li>
