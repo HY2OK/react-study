@@ -8,6 +8,12 @@ import {
 } from '../../redux/features/page/pageSlice'
 import { useAppDispatch, useAppSelector } from '../../redux/hooks'
 import { useEffect } from 'react'
+import {
+  MdOutlineKeyboardDoubleArrowLeft,
+  MdOutlineKeyboardDoubleArrowRight,
+  MdKeyboardArrowLeft,
+  MdKeyboardArrowRight,
+} from 'react-icons/md'
 
 interface Props {
   count: number
@@ -39,21 +45,31 @@ const PageButtons: React.FC<Props> = ({ count }) => {
   }
 
   const locatePage = (page: number) => {
-    if (page >= lastPage! || page <= 0) return
+    if (page >= lastPage! + 1 || page <= 0) return
     navigate(`/?page=${page}`)
     dispatch(locateByNumber(page))
   }
 
   return (
     <div className="flex justify-center items-center gap-3 mt-8">
-      {currentPage !== 1 && <button onClick={() => prevPage()}>prev</button>}
+      {currentPage !== 1 && (
+        <>
+          <button onClick={() => locatePage(1)} className="text-xl">
+            <MdOutlineKeyboardDoubleArrowLeft />
+          </button>
+
+          <button onClick={() => prevPage()} className="text-xl">
+            <MdKeyboardArrowLeft />
+          </button>
+        </>
+      )}
 
       {pageList !== null &&
         pageList?.map((page, index) => (
           <div
             key={index}
             className={`w-8 h-8 border rounded-md flex justify-center items-center shadow-md cursor-pointer ${
-              page === currentPage ? 'text-blue-500 border-blue-500' : 'border-black '
+              page === currentPage ? 'text-yellow-500 border-yellow-500' : 'border-black '
             }`}
             onClick={() => locatePage(page)}
           >
@@ -61,7 +77,17 @@ const PageButtons: React.FC<Props> = ({ count }) => {
           </div>
         ))}
 
-      {currentPage !== lastPage && <button onClick={() => nextPage()}>next</button>}
+      {currentPage !== lastPage && (
+        <>
+          <button onClick={() => nextPage()} className="text-xl">
+            <MdKeyboardArrowRight />
+          </button>
+
+          <button onClick={() => locatePage(lastPage!)} className="text-xl">
+            <MdOutlineKeyboardDoubleArrowRight />
+          </button>
+        </>
+      )}
     </div>
   )
 }
