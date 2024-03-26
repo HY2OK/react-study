@@ -40,7 +40,7 @@ const PokemonCard: React.FC<Props> = ({ pokemonName }) => {
 
           <NameSection pokemonName={nameError ? data?.name : korName!} />
 
-          <TypeSection typesList={data.types} types={TYPES[data.types[0].type.name]} />
+          <TypeSection typesList={data.types} />
         </>
       )}
     </li>
