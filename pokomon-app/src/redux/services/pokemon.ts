@@ -16,13 +16,12 @@ interface PokemonCard {
   types: { slot: number; type: { name: string; url: string } }[]
 }
 
-interface PokemonDetails {
+export interface PokemonDetails {
   id: string
   name: string
   weight: number
   height: number
   sprites: {
-    front_default: string
     other: { 'official-artwork': { front_default: string } }
   }
   types: { slot: number; type: { name: string; url: string } }[]
@@ -61,8 +60,24 @@ export const pokemonApi = createApi({
 
     getPokemonDetailsByName: builder.query({
       query: (name: string) => `pokemon/${name}`,
-      transformResponse: (response) => {
-        return response
+      transformResponse: ({
+        id,
+        name,
+        weight,
+        height,
+        sprites,
+        types,
+        stats,
+      }: PokemonDetails) => {
+        return {
+          id,
+          name,
+          weight,
+          height,
+          sprites,
+          types,
+          stats,
+        }
       },
     }),
   }),
