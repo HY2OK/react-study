@@ -9,7 +9,7 @@ const ImageSection: React.FC<Props> = ({ pokemonId, pokemonName, imgUrl, types }
   return (
     <>
       <div
-        className={`absolute top-[-370px] w-[500px] h-[500px] rounded-[80%] bg-${types}  z-0`}
+        className={`absolute top-[-60%] left-[10%] w-[120%] h-[120%] rounded-[80%] bg-${types} z-0 shadow-2xl`}
       />
       <div className="w-14 ml-auto bg-white rounded-md text-center text-slate-700 z-10">
         {pokemonId}

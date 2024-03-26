@@ -21,7 +21,7 @@ const PokemonCard: React.FC<Props> = ({ pokemonName }) => {
 
   return (
     <li
-      className="w-full h-[315px] bg-white shadow-xl rounded-md flex flex-col items-center relative overflow-hidden cursor-pointer p-4"
+      className="w-full bg-white shadow-xl rounded-md flex flex-col items-center relative overflow-hidden cursor-pointer p-4"
       onClick={() => navigate(`${data?.name}${nameError ? '' : '?kor=' + korName}`)}
     >
       {error && <div>error</div>}

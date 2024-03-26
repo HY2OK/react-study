@@ -6,7 +6,7 @@ interface PokemonNames {
   name: string
 }
 
-interface PokemonDetails {
+interface PokemonCard {
   id: string
   name: string
   sprites: {
@@ -14,6 +14,19 @@ interface PokemonDetails {
     other: { 'official-artwork': { front_default: string } }
   }
   types: { slot: number; type: { name: string; url: string } }[]
+}
+
+interface PokemonDetails {
+  id: string
+  name: string
+  weight: number
+  height: number
+  sprites: {
+    front_default: string
+    other: { 'official-artwork': { front_default: string } }
+  }
+  types: { slot: number; type: { name: string; url: string } }[]
+  stats: { base_stat: number; stat: { name: string } }[]
 }
 
 // Define a service using a base URL and expected endpoints
@@ -27,7 +40,7 @@ export const pokemonApi = createApi({
 
     getPokemonByName: builder.query({
       query: (name: string) => `pokemon/${name}`,
-      transformResponse: ({ id, name, sprites, types }: PokemonDetails) => {
+      transformResponse: ({ id, name, sprites, types }: PokemonCard) => {
         const response = {
           id: id,
           name: name,
@@ -45,13 +58,21 @@ export const pokemonApi = createApi({
         return names.filter(({ language }) => language.name === 'ko')[0].name
       },
     }),
+
+    getPokemonDetailsByName: builder.query({
+      query: (name: string) => `pokemon/${name}`,
+      transformResponse: (response) => {
+        return response
+      },
+    }),
   }),
 })
 
 // Export hooks for usage in functional components, which are
 // auto-generated based on the defined endpoints
 export const {
-  useGetPokemonByNameQuery,
   useGetPokemonListQuery,
+  useGetPokemonByNameQuery,
   useGetPokemonKorNameQuery,
+  useGetPokemonDetailsByNameQuery,
 } = pokemonApi
