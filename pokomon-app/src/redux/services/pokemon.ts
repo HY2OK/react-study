@@ -9,7 +9,10 @@ interface PokemonNames {
 interface PokemonDetails {
   id: string
   name: string
-  sprites: { front_default: string }
+  sprites: {
+    front_default: string
+    other: { 'official-artwork': { front_default: string } }
+  }
   types: { slot: number; type: { name: string; url: string } }[]
 }
 
@@ -28,7 +31,8 @@ export const pokemonApi = createApi({
         const response = {
           id: id,
           name: name,
-          sprites: sprites?.front_default,
+          // sprites: sprites?.front_default,
+          sprites: sprites.other['official-artwork'].front_default,
           types: types,
         }
         return response

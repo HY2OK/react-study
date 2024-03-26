@@ -1,6 +1,9 @@
 import { useNavigate } from 'react-router-dom'
 import { TYPES } from '../../constants/type'
-import { useGetPokemonByNameQuery } from '../../redux/services/pokemon'
+import {
+  useGetPokemonByNameQuery,
+  useGetPokemonKorNameQuery,
+} from '../../redux/services/pokemon'
 import NameSection from './NameSection/NameSection'
 import ImageSection from './ImageSection/ImageSection'
 import TypeSection from './TypeSection/TypeSection'
@@ -11,15 +14,20 @@ interface Props {
 
 const PokemonCard: React.FC<Props> = ({ pokemonName }) => {
   const { data, error, isLoading } = useGetPokemonByNameQuery(pokemonName)
+  const { data: korName, error: nameError } = useGetPokemonKorNameQuery(pokemonName, {
+    skip: isLoading,
+  })
   const navigate = useNavigate()
 
   return (
     <li
-      className="w-full h-[300px] bg-white shadow-xl rounded-md flex flex-col items-center relative overflow-hidden cursor-pointer"
-      onClick={() => navigate(`${data?.name}`)}
+      className="w-full h-[315px] bg-white shadow-xl rounded-md flex flex-col items-center relative overflow-hidden cursor-pointer p-4"
+      onClick={() => navigate(`${data?.name}${nameError ? '' : '?kor=' + korName}`)}
     >
       {error && <div>error</div>}
-      {isLoading && <div>loading...</div>}
+      {isLoading && (
+        <div className="w-full h-full flex justify-center items-center">loading...</div>
+      )}
 
       {data && (
         <>
@@ -30,7 +38,7 @@ const PokemonCard: React.FC<Props> = ({ pokemonName }) => {
             types={TYPES[data.types[0].type.name]}
           />
 
-          <NameSection pokemonName={data.name} />
+          <NameSection pokemonName={nameError ? data?.name : korName!} />
 
           <TypeSection typesList={data.types} types={TYPES[data.types[0].type.name]} />
         </>
