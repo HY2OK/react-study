@@ -9,7 +9,7 @@ const PokemonDetailPage = () => {
   const { data, error, isLoading } = useGetPokemonDetailsByNameQuery(name!)
 
   return (
-    <div className="w-[80%] h-[700px] bg-white border-8 border-slate-800 rounded-xl flex justify-center items-center ">
+    <div className="w-[80%] h-[750px] bg-white border-8 border-slate-800 rounded-xl flex justify-center items-center ">
       {error && <div>error</div>}
       {isLoading && <div>loading...</div>}
       {data && <PokemonDetail data={data} korName={korName!} />}

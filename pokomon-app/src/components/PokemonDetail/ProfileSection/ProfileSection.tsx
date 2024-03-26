@@ -8,9 +8,9 @@ interface Props {
 
 const ProfileSection: React.FC<Props> = ({ types, height, weight }) => {
   return (
-    <div className="w-full flex justify-around mt-8 border py-6 rounded-lg">
+    <div className="w-full flex justify-around mt-8 border py-6 rounded-lg text-center">
       <div className="w-14 flex flex-col ">
-        <div className="text-slate-400 text-sm">타입</div>
+        <div className="text-slate-400 text-sm ">타입</div>
         <div className="mt-3">
           {types.map(({ slot, type }) => (
             <div
