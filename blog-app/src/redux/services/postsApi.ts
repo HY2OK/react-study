@@ -4,7 +4,7 @@ import { api } from './api'
 export const postsApi = api.injectEndpoints({
   endpoints: (builder) => ({
     getAllPosts: builder.query({
-      query: () => `posts`,
+      query: (page: number) => `posts?_page=${page}&_per_page=5`,
     }),
   }),
 })
