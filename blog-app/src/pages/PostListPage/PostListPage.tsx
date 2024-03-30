@@ -2,9 +2,10 @@ import { useGetAllPostsQuery } from '../../redux/services/postsApi'
 import PostList from '../../components/PostList/PostList'
 
 const PostListPage = () => {
-  const { data, error, isLoading } = useGetAllPostsQuery('')
+  const { data, error, isLoading } = useGetAllPostsQuery()
 
-  console.log(data, error, isLoading)
+  console.log('run')
+  console.log('data', data)
 
   return (
     <>
