@@ -1,10 +1,16 @@
 import { api } from './api'
 
+export interface PostDataState {
+  id: string
+  title: string
+  body: string
+}
+
 // Define a service using a base URL and expected endpoints
 export const postsApi = api.injectEndpoints({
   endpoints: (builder) => ({
-    getAllPosts: builder.query({
-      query: (page: number) => `posts?_page=${page}&_per_page=5`,
+    getAllPosts: builder.query<PostDataState[], string>({
+      query: () => `posts`,
     }),
   }),
 })

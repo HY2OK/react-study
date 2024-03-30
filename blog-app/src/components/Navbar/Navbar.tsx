@@ -3,7 +3,7 @@ import { Link, Outlet } from 'react-router-dom'
 const Navbar = () => {
   return (
     <>
-      <nav className="h-[100px] flex justify-between items-center px-10">
+      <nav className="sticky top-0 left-0 h-[80px] flex justify-between items-center px-10 bg-slate-100">
         <Link to="/" className="text-3xl font-bold cursor-pointer">
           ZZap.log
         </Link>

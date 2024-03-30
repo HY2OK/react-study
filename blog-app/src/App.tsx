@@ -3,6 +3,7 @@ import './App.css'
 import PostListPage from './pages/PostListPage/PostListPage'
 import PostPage from './pages/PostPage/PostPage'
 import Navbar from './components/Navbar/Navbar'
+import PostDetailPage from './pages/PostDetailPage/PostDetailPage'
 
 const router = createBrowserRouter([
   {
@@ -12,6 +13,10 @@ const router = createBrowserRouter([
       {
         path: '',
         element: <PostListPage />,
+      },
+      {
+        path: ':id',
+        element: <PostDetailPage />,
       },
       {
         path: 'post',
