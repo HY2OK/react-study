@@ -41,24 +41,33 @@ const PostForm = () => {
 
   return (
     <form onSubmit={handleSubmit} className="w-[70%] flex flex-col justify-center ">
-      <label htmlFor="title">제목</label>
+      <label htmlFor="title" className="text-slate-700 mb-2">
+        제목
+      </label>
       <input
         type="text"
         name="title"
         id="title"
         value={data.title}
         onChange={handleData}
-        className="w-full"
+        className="w-full h-[40px] rounded-md shadow-md mb-8 px-6 text-lg font-bold"
       />
-      <label htmlFor="body">내용</label>
+      <label htmlFor="body" className="text-slate-700 mb-2">
+        내용
+      </label>
       <textarea
         name="body"
         id="body"
         value={data.body}
         onChange={handleData}
-        className="w-full"
+        className="w-full h-[300px] rounded-md shadow-md mb-10 resize-none px-8 py-4"
       />
-      <button type="submit">작성</button>
+      <button
+        type="submit"
+        className="w-[150px] h-[40px] m-auto bg-slate-500 text-lg text-white rounded-lg"
+      >
+        작성
+      </button>
     </form>
   )
 }
