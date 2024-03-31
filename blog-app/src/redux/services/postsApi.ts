@@ -17,6 +17,10 @@ export const postsApi = api.injectEndpoints({
         { type: 'Posts' as const, id: 'LIST' },
       ],
     }),
+    getPostById: builder.query<PostDataState, string>({
+      query: (id) => `posts/${id}`,
+      providesTags: (_post, _err, id) => [{ type: 'Posts', id }],
+    }),
     createPost: builder.mutation({
       query: (newPost: PostDataState) => ({
         url: '/posts',
@@ -30,4 +34,5 @@ export const postsApi = api.injectEndpoints({
 
 // Export hooks for usage in functional components, which are
 // auto-generated based on the defined endpoints
-export const { useGetAllPostsQuery, useCreatePostMutation } = postsApi
+export const { useGetAllPostsQuery, useCreatePostMutation, useGetPostByIdQuery } =
+  postsApi

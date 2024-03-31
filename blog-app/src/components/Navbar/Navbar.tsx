@@ -14,7 +14,7 @@ const Navbar = () => {
           글 작성하기
         </Link>
       </nav>
-      <div className="min-h-[calc(100vh-100px)] bg-slate-100">
+      <div className="min-h-[calc(100vh-80px)] bg-slate-100">
         <Outlet />
       </div>
     </>
