@@ -36,6 +36,17 @@ export const postsApi = api.injectEndpoints({
       }),
       invalidatesTags: (post) => [{ type: 'Posts', id: post?.id }],
     }),
+    updatePost: builder.mutation({
+      query(data) {
+        const { id, ...body } = data
+        return {
+          url: `posts/${id}`,
+          method: 'PATCH',
+          body,
+        }
+      },
+      invalidatesTags: (post) => [{ type: 'Posts', id: post?.id }],
+    }),
   }),
 })
 
@@ -46,4 +57,5 @@ export const {
   useCreatePostMutation,
   useGetPostByIdQuery,
   useDeletePostMutation,
+  useUpdatePostMutation,
 } = postsApi

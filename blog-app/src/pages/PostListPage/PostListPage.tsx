@@ -4,9 +4,6 @@ import PostList from '../../components/PostList/PostList'
 const PostListPage = () => {
   const { data, error, isLoading } = useGetAllPostsQuery()
 
-  console.log('run')
-  console.log('data', data)
-
   return (
     <>
       {error && <div>error...</div>}
