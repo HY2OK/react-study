@@ -11,7 +11,12 @@ const PostDetailPage = () => {
       {error && <div>error...</div>}
       {isLoading && <div>loading...</div>}
       {data && (
-        <PostDetail title={data.title} body={data.body} date={data.date || null} />
+        <PostDetail
+          id={data.id}
+          title={data.title}
+          body={data.body}
+          date={data.date || null}
+        />
       )}
     </div>
   )

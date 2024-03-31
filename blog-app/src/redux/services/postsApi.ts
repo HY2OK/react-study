@@ -29,10 +29,21 @@ export const postsApi = api.injectEndpoints({
       }),
       invalidatesTags: [{ type: 'Posts', id: 'LIST' }],
     }),
+    deletePost: builder.mutation({
+      query: (id: string) => ({
+        url: `/posts/${id}`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: (post) => [{ type: 'Posts', id: post?.id }],
+    }),
   }),
 })
 
 // Export hooks for usage in functional components, which are
 // auto-generated based on the defined endpoints
-export const { useGetAllPostsQuery, useCreatePostMutation, useGetPostByIdQuery } =
-  postsApi
+export const {
+  useGetAllPostsQuery,
+  useCreatePostMutation,
+  useGetPostByIdQuery,
+  useDeletePostMutation,
+} = postsApi
